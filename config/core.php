@@ -17,6 +17,7 @@
     define("HTML_TEMPLATE",LIB_DIR.'templates/');
 
     define("USER_SESSION_HOLDER", "admin");
+    define("USERS_SESSION_HOLDER", "admin");
     define("WEB_TITLE","Barcode Attendance");
     define("WEB_SUB_TITLE","Barcode");
 
@@ -24,9 +25,9 @@
 
     if (Env == "online") {
         define('DB_HOST', 'localhost');
-        define('DB_TABLE', 'verajnse_hostel');
-        define('DB_USER', 'verajnse_hostel');
-        define('DB_PASSWORD', '&b.7LWmCqXYQ');
+        define('DB_TABLE', 'verajnse_barcode_attendance');
+        define('DB_USER', 'verajnse_barcode_attendance');
+        define('DB_PASSWORD', '5Xb0RcX@LuAL');
     }else{
         define('DB_HOST', 'localhost');
         define('DB_TABLE', 'app_fpe_barcode_attendance');

@@ -33,7 +33,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
-                android:text="Project Result"
+                android:text="Change Password"
                 android:layout_weight="0.0" />
 
             <Button
@@ -55,28 +55,80 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:paddingBottom="@dimen/spacing_large"
-            android:paddingTop="@dimen/spacing_large"
+            android:padding="@dimen/spacing_large"
             android:focusableInTouchMode="true"
             android:focusable="true"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Old Password"
+                android:textSize="@dimen/spacing_large"
+                android:fontFamily="sans-serif-condensed"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:gravity="center_horizontal" />
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:padding="@dimen/spacing_large"
-               android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                boxStrokeWidth="1dp"
+                android:textSize="14dp"
+                app:passwordToggleEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_height="wrap_content"
+                android:hint="Old Password">
 
-               <Button
-                   android:layout_width="match_parent"
-                   android:padding="@dimen/spacing_large"
-                   android:text="Check Your Project Grade"
-                   android:layout_height="match_parent"/>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:padding="@dimen/spacing_middle"
+                    android:inputType="textPassword"
+                    android:textSize="14dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
-           </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Old Password"
+                android:textSize="@dimen/spacing_large"
+                android:fontFamily="sans-serif-condensed"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:gravity="center_horizontal" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                boxStrokeWidth="1dp"
+                android:textSize="14dp"
+                app:passwordToggleEnabled="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="New Password">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/npassword"
+                    android:padding="@dimen/spacing_middle"
+                    android:inputType="textPassword"
+                    android:textSize="14dp"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:text="Change Password"
+                android:id="@+id/submit_change_password"
+                android:padding="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

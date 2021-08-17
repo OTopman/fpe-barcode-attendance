@@ -12,7 +12,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS, PATCH, DELETE');
 
 $action_data = @$_POST;
-$data = array();
+$data = $student_info = array();
 
 
 switch ($action_data['action']){
@@ -21,8 +21,8 @@ switch ($action_data['action']){
         $matric = strtolower($action_data['matric']);
         $password = strtolower($action_data['password']);
 
-        $sql = $db->query("SELECT s.*, d.name as dept FROM ".DB_PREFIX."students s 
-        LEFT JOIN ".DB_PREFIX."departments d
+        $sql = $db->query("SELECT s.*, d.name as dept FROM students s 
+        LEFT JOIN departments d
             ON s.dept = d.id
         WHERE s.matric='$matric' and s.password='$password'");
 
@@ -50,6 +50,51 @@ switch ($action_data['action']){
             'status'=>$data,
             'student_info'=>$student_info,
         );
+
+        get_json($data);
+
+        break;
+
+    case 'get_attendance' :
+
+        $student_id = $action_data['student_id'];
+
+        $sql = $db->query("SELECT * FROM students WHERE id='$student_id'");
+        $rs = $sql->fetch(PDO::FETCH_ASSOC);
+
+        $department_id = $rs['dept'];
+        $level = $rs['level'];
+
+        $end_time = date('m/d/Y H:s A');
+
+        $sql2 = $db->query("SELECT a.*, s.fname, s.username, c.title, c.code, c.level, d.name FROM attendance a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id INNER JOIN staff s ON a.staff_id = s.id WHERE c.department ='$department_id' and c.level='$level' and a.end_time <='$end_time'");
+
+        while ($rs = $sql2->fetch(PDO::FETCH_ASSOC)){
+            $data[] = $rs;
+        }
+
+        get_json($data);
+
+        break;
+
+    case 'change_password' :
+
+        $student_id = $action_data['student_id'];
+        $password = $action_data['password'];
+        $npassword = $action_data['npassword'];
+
+        $sql = $db->query("SELECT * FROM students WHERE id='$student_id'");
+
+        $rs = $sql->fetch(PDO::FETCH_ASSOC);
+
+        if ($password != $rs['password'] or $sql->rowCount() == 0){
+            $data['error'] = 0;
+            $data['msg'] = "Invalid old password entered, please try again";
+        }else{
+            $db->query("UPDATE students SET password='$npassword' WHERE id='$student_id'");
+            $data['error'] = 1;
+            $data['msg'] = "Your password has been changed successfully";
+        }
 
         get_json($data);
 

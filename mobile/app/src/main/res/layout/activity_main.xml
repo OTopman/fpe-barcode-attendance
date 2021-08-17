@@ -94,8 +94,8 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/colorPrimary"
-                    android:id="@+id/notification"
-                    app:srcCompat="@drawable/ic_baseline_history_24"
+                    android:id="@+id/change_password"
+                    app:srcCompat="@drawable/ic_baseline_lock_open_24"
                     tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
@@ -117,7 +117,7 @@
         app:backgroundTint="@color/colorPrimary"
         app:elevation="5dp"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_baseline_home_24"
+        app:srcCompat="@drawable/ic_baseline_qr_code_24"
         tools:ignore="VectorDrawableCompat" />
 
 </RelativeLayout>

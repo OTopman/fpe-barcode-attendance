@@ -54,10 +54,27 @@ function is_login(){
     }
 }
 
+function is_lecturer_login(){
+    if (!isset($_SESSION['loggeding'])){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
 function admin_details($value){
     global $db;
     $username = $_SESSION[USER_SESSION_HOLDER]['username'];
     $sql = $db->query("SELECT * FROM admin WHERE username='$username'");
+    $rs = $sql->fetch(PDO::FETCH_ASSOC);
+    return $rs[$value];
+}
+
+
+function lecturer_details($value){
+    global $db;
+    $username = $_SESSION[USERS_SESSION_HOLDER]['username'];
+    $sql = $db->query("SELECT * FROM staff WHERE username='$username'");
     $rs = $sql->fetch(PDO::FETCH_ASSOC);
     return $rs[$value];
 }

@@ -1,5 +1,5 @@
 <?php
-    $name = admin_details('fname');
+    $name = lecturer_details('fname');
     $sn =1;
 ?>
 <!DOCTYPE html>
@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="<?= HTML_TEMPLATE ?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="<?= HTML_TEMPLATE ?>bower_components/fullcalendar/dist/fullcalendar.min.css">
     <link rel="stylesheet" href="<?= HTML_TEMPLATE ?>bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
     <!-- Theme style -->
     <link rel="stylesheet" href="<?= HTML_TEMPLATE ?>dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="<?= HTML_TEMPLATE ?>dist/css/css.css">
@@ -91,51 +94,24 @@
             <ul class="sidebar-menu" data-widget="tree">
                 <li class="header">MAIN NAVIGATION</li>
                 <li >
-                    <a href="<?= base_url('dashboard.php') ?>">
+                    <a href="<?= base_url('account.php') ?>">
                         <i class="fa fa-home text-blue"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
 
-                <li >
-                    <a href="<?= base_url('add_staff.php') ?>">
-                        <i class="fa fa-users text-blue"></i>
-                        <span>Add Staff</span>
-                    </a>
-                </li>
 
                 <li >
-                    <a href="<?= base_url('course.php') ?>">
-                        <i class="fa fa-circle-o-notch text-success"></i>
-                        <span>All Course</span>
-                    </a>
-                </li>
-
-                <li >
-                    <a href="<?= base_url('assign-course.php') ?>">
+                    <a href="<?= base_url('assigned-course.php') ?>">
                         <i class="fa fa-circle-o-notch text-success"></i>
                         <span>Assign Course</span>
                     </a>
                 </li>
 
                 <li >
-                    <a href="<?= base_url('staff.php') ?>">
-                        <i class="fa fa-users text-success"></i>
-                        <span>All Staffs</span>
-                    </a>
-                </li>
-
-                <li >
-                    <a href="<?= base_url('student.php') ?>">
-                        <i class="fa fa-users text-warning"></i>
-                        <span>All Student's</span>
-                    </a>
-                </li>
-
-                <li >
-                    <a href="<?= base_url('add-student.php') ?>">
-                        <i class="fa fa-users text-warning"></i>
-                        <span>Add New Student</span>
+                    <a href="<?= base_url('attendance.php') ?>">
+                        <i class="fa fa-circle-o-notch text-success"></i>
+                        <span>All Attendance Schedule</span>
                     </a>
                 </li>
 

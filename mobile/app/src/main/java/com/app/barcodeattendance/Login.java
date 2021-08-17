@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         func = new com.app.barcodeattendance.Func(this);
-        this.setTitle("Account Login");
+        this.setTitle("Student Login");
 
         login = findViewById(R.id.login);
         matric = findViewById(R.id.matric);
@@ -53,7 +53,6 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(com.app.barcodeattendance.Login.this, com.app.barcodeattendance.Developer.class));
             }
         });
-
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
