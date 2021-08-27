@@ -79,11 +79,36 @@ public class Main extends AppCompatActivity {
                     public void onResponse(String response) {
 
                         func.dismissDialog();
+
+                        try {
+
+                            JSONObject object = new JSONObject(response);
+                            JSONObject data;
+
+                            data = object.getJSONObject("status");
+
+                            if (data.getString("error").equals("0")){
+                                func.vibrate();
+                                func.error_toast(data.getString("msg"));
+                                return;
+                            }
+
+                            func.vibrate();
+                            SharedPreferences.Editor attendance = getSharedPreferences("attendance", MODE_PRIVATE).edit();
+                            attendance.putString("attendance", object.toString());
+                            attendance.apply();
+
+                            getSupportFragmentManager().beginTransaction().replace(R.id.container, new Attendance()).addToBackStack(null).commit();
+
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        func.vibrate();
+                        func.error_toast("No internet connection, try again");
                         func.dismissDialog();
 
                     }

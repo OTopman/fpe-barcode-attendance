@@ -57,16 +57,16 @@ require_once 'assets/head.php';
                         <select name="course_id" class="form-control" required id="">
                             <option value="" selected disabled>Select</option>
                             <?php
-                            $sql = $db->query("SELECT a.*, s.fname, s.username, c.title, c.code, c.level, d.name FROM assign_course a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id INNER JOIN staff s ON a.staff_id = s.id WHERE a.staff_id ='$staff_id'");
+                            $sql = $db->query("SELECT a.*, s.fname, s.username, c.title, c.id as course_id, c.code, c.level, d.name FROM assign_course a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id INNER JOIN staff s ON a.staff_id = s.id WHERE a.staff_id ='$staff_id'");
                             while ($rs = $sql->fetch(PDO::FETCH_ASSOC)){
                                 ?>
-                                <option value="<?= $rs['id'] ?>"><?= ucwords($rs['title']) ?> ( <?= ucwords($rs['name']) ?> - <?= strtoupper($rs['level']) ?>)</option>
+                                <option value="<?= $rs['course_id'] ?>"><?= ucwords($rs['title']) ?> ( <?= ucwords($rs['name']) ?> - <?= strtoupper($rs['level']) ?>)</option>
                                 <?php
                             }
                             ?>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="">Attendance Range Date &amp; Time</label>
                         <input type="text" class="form-control" name="start_date" id="reservationtime">
@@ -127,21 +127,21 @@ require_once 'assets/head.php';
                     </tfoot>
                     <tbody>
                     <?php
-                        $sql = $db->query("SELECT a.*, c.title, c.code, c.level, d.name FROM attendance a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id WHERE a.staff_id='$staff_id'");
-                        while ($rs = $sql->fetch(PDO::FETCH_ASSOC)){
-                            ?>
-                            <tr>
-                                <td><?= $sn++ ?></td>
-                                <td><?= ucwords($rs['title']) ?></td>
-                                <td><?= strtoupper($rs['code']) ?></td>
-                                <td><?= ucwords($rs['name']) ?></td>
-                                <td><?= strtoupper($rs['level']) ?></td>
-                                <td><?= $rs['start_time'] ?></td>
-                                <td><?= $rs['end_time'] ?></td>
-                                <td><a href="" class="btn btn-primary btn-sm">View</a></td>
-                            </tr>
-                            <?php
-                        }
+                    $sql = $db->query("SELECT a.*, c.title, c.code, c.level, d.name FROM attendance a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id WHERE a.staff_id='$staff_id'");
+                    while ($rs = $sql->fetch(PDO::FETCH_ASSOC)){
+                        ?>
+                        <tr>
+                            <td><?= $sn++ ?></td>
+                            <td><?= ucwords($rs['title']) ?></td>
+                            <td><?= strtoupper($rs['code']) ?></td>
+                            <td><?= ucwords($rs['name']) ?></td>
+                            <td><?= strtoupper($rs['level']) ?></td>
+                            <td><?= $rs['start_time'] ?></td>
+                            <td><?= $rs['end_time'] ?></td>
+                            <td><a href="" class="btn btn-primary btn-sm">View</a></td>
+                        </tr>
+                        <?php
+                    }
                     ?>
                     </tbody>
                 </table>

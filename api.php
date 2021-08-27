@@ -12,7 +12,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, PUT, OPTIONS, PATCH, DELETE');
 
 $action_data = @$_POST;
-$data = $student_info = array();
+$data = $student_info = $attendance = array();
 
 
 switch ($action_data['action']){
@@ -69,9 +69,20 @@ switch ($action_data['action']){
 
         $sql2 = $db->query("SELECT a.*, s.fname, s.username, c.title, c.code, c.level, d.name FROM attendance a INNER JOIN course c ON a.course_id = c.id INNER JOIN departments d ON c.department = d.id INNER JOIN staff s ON a.staff_id = s.id WHERE c.department ='$department_id' and c.level='$level' and a.end_time <='$end_time'");
 
-        while ($rs = $sql2->fetch(PDO::FETCH_ASSOC)){
-            $data[] = $rs;
+
+        if ($sql2->rowCount() == 0){
+            $data['error'] = 0;
+            $data['msg'] = "No schedule for attendance yet";
+        }else{
+            while ($rs = $sql2->fetch(PDO::FETCH_ASSOC)){
+                $attendance[] = $rs;
+            }
         }
+
+        $data = array(
+            'status'=>$data,
+            'attendance'=>$attendance
+        );
 
         get_json($data);
 
