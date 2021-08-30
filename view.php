@@ -86,6 +86,7 @@ require_once 'libs/head.php';
         <ul class="nav nav-tabs">
             <li class="active"><a href="#tab_1" data-toggle="tab">Student Details</a></li>
             <li><a href="#tab_2" data-toggle="tab">Attendance</a></li>
+            <li><a href="#tab_3" data-toggle="tab">Student ID - Card</a></li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab_1">
@@ -127,6 +128,10 @@ require_once 'libs/head.php';
             <!-- /.tab-pane -->
             <div class="tab-pane" id="tab_2">
 
+            </div>
+            <div class="tab-pane" id="tab_3">
+
+                <?php require_once 'card.php'?>
             </div>
         </div>
         <!-- /.tab-content -->
