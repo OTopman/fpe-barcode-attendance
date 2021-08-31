@@ -110,5 +110,23 @@ switch ($action_data['action']){
         get_json($data);
 
         break;
+
+    case 'barcode_attendance' :
+
+        $matric = base64_decode($action_data['matric']);
+
+        $sql = $db->query("SELECT * FROM students WHERE matric='$matric'");
+        $rs = $sql->fetch(PDO::FETCH_ASSOC);
+
+        $student_id = $rs['id'];
+
+        if ($sql->rowCount() == 0){
+            $data['error'] = 0;
+            $data['msg'] = "Invalid barcode";
+        }
+
+
+
+        break;
     default;
 }
