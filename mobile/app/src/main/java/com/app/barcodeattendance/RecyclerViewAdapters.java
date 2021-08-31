@@ -2,14 +2,17 @@ package com.app.barcodeattendance;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.makeramen.roundedimageview.RoundedTransformationBuilder;
@@ -53,15 +56,20 @@ public class RecyclerViewAdapters extends RecyclerView.Adapter<RecyclerViewAdapt
 
         Picasso.get().load(mData.get(position).getImage()).transform(transformation).into(holder.st_image);
 
-        if (is_click.equals("true")){
+        Bundle bundle = new Bundle();
+        bundle.putString("view_id", ((Lists) mData.get(position)).getId());
+
+
+        if (is_click.equals("view_attendance")){
             holder.click.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View v) {
-                    String view_id = ((Lists) RecyclerViewAdapters.this.mData.get(position)).getId();
 
-                    Intent intent = new Intent(v.getContext(), View.class);
-                    intent.putExtra("view_id", view_id);
-                    v.getContext().startActivity(intent);
+                    View_attendance view_attendance = new View_attendance();
+                    view_attendance.setArguments(bundle);
+
+                    ((AppCompatActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.container, view_attendance).commit();
 
                 }
             });

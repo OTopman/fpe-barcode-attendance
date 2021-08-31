@@ -72,7 +72,7 @@ public class Attendance extends Fragment {
                 title = attendance_data.getString("title");
                 code = attendance_data.getString("code");
 
-                mData.add(new Lists(title+" ("+code+") ","Lecturer in-Charge : "+name,"",Core.URI+"/templates/images/logo.png",id,""));
+                mData.add(new Lists(title+" ("+code+") ","Lecturer in-Charge : "+name,"",Core.URI+"/templates/images/logo.png",id,"view_attendance"));
 
             }
 
