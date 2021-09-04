@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.app.barcodeattendance"
-        minSdkVersion 16
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation 'com.google.zxing:core:3.2.1'
-    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.eyalbira.loadingdots:loading-dots:1.0.2'
     implementation 'com.balysv:material-ripple:1.0.2'

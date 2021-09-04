@@ -46,7 +46,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Design and implementation of an android \nbased  student barcode attendance \n  \n(A case study of computer science department ) \n \n (Supervised By Mr Lawal)"
+                        android:text="Design and implementation of an android \nbased  student attendance using Qr-code \n  \n(A case study of computer science department ) \n \n (Supervised By Mr Lawal)"
                         android:textSize="@dimen/spacing_large"
                         android:padding="@dimen/spacing_medium"
                         android:textColor="@color/black"
@@ -61,10 +61,10 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="80dp"
+                        android:layout_height="59dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/icon"
                         android:layout_marginBottom="@dimen/spacing_large"
-                        android:layout_height="80dp"/>
+                        android:src="@drawable/icon" />
 
                     <TextView
                         android:layout_width="wrap_content"

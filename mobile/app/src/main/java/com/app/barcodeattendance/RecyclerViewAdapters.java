@@ -65,11 +65,9 @@ public class RecyclerViewAdapters extends RecyclerView.Adapter<RecyclerViewAdapt
                 @Override
                 public void onClick(android.view.View v) {
 
-                    View_attendance view_attendance = new View_attendance();
-                    view_attendance.setArguments(bundle);
-
-                    ((AppCompatActivity) v.getContext()).getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.container, view_attendance).commit();
+                    Intent intent = new Intent(v.getContext(), Scan_attendance_barcode.class);
+                    intent.putExtras(bundle);
+                    v.getContext().startActivity(intent);
 
                 }
             });

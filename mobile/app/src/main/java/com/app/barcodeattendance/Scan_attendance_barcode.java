@@ -1,19 +1,16 @@
 package com.app.barcodeattendance;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -22,7 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class View_attendance extends Fragment {
+public class Scan_attendance_barcode extends AppCompatActivity {
 
     public Func func;
 
@@ -31,9 +28,8 @@ public class View_attendance extends Fragment {
 
     public Button scan;
 
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -41,40 +37,56 @@ public class View_attendance extends Fragment {
         // toast a message as "cancelled"
         if (intentResult != null) {
             if (intentResult.getContents() == null) {
-                Toast.makeText(getActivity(), "Cancelled", Toast.LENGTH_SHORT).show();
+                func.error_toast("Cancelled");
             } else {
                 // if the intentResult is not null we'll set
                 // the content and format of scan message
-                Toast.makeText(getActivity(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), intentResult.getFormatName(), Toast.LENGTH_SHORT).show();;
+                func.success_toast(intentResult.getContents());
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.view_attendance, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_scan_attendace_barcode);
 
-        func = new Func(getActivity());
+        func = new Func(this);
 
-        String attendance_id = getArguments().getString("view_id");
-        getActivity().setTitle("Mark Attendance");
+        Bundle bundle = getIntent().getExtras();
 
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("attendance", Context.MODE_PRIVATE);
+        String attendance_id = bundle.getString("view_id","empty");
+        this.setTitle("Mark Attendance");
+
+        if (attendance_id.equals("empty")){
+            Intent intent = new Intent(getApplicationContext(), Main.class);
+            startActivity(intent);
+            return;
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("attendance", Context.MODE_PRIVATE);
         response = sharedPreferences.getString("attendance",null);
 
-        fname = root.findViewById(R.id.staff_name);
-        course_code = root.findViewById(R.id.course_code);
-        dept = root.findViewById(R.id.dept);
-        start_date = root.findViewById(R.id.start_date);
-        level = root.findViewById(R.id.level);
-        end_date = root.findViewById(R.id.end_date);
+        fname = findViewById(R.id.staff_name);
+        course_code = findViewById(R.id.course_code);
+        dept = findViewById(R.id.dept);
+        start_date = findViewById(R.id.start_date);
+        level = findViewById(R.id.level);
+        end_date = findViewById(R.id.end_date);
 
-        scan = root.findViewById(R.id.scan);
+        scan = findViewById(R.id.scan);
 
+        scan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator intentIntegrator = new IntentIntegrator(Scan_attendance_barcode.this);
+                intentIntegrator.setPrompt("Scan a barcode or QR Code");
+                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.initiateScan();
+            }
+        });
 
         String id;
 
@@ -106,25 +118,5 @@ public class View_attendance extends Fragment {
             e.printStackTrace();
         }
 
-        return root;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
-                intentIntegrator.setPrompt("Scan a barcode or QR Code");
-                intentIntegrator.setOrientationLocked(true);
-                intentIntegrator.initiateScan();
-
-            }
-        });
-
     }
 }
-
-

@@ -4,8 +4,10 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-feature android:name="android.hardware.camera.autoFocus" />
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
@@ -15,8 +17,11 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.BarcodeAttendance">
-        <activity android:name=".Main"></activity>
-        <activity android:name=".Developer" android:parentActivityName=".Login" />
+        <activity android:name=".Scan_attendance_barcode" android:parentActivityName=".Main"></activity>
+        <activity android:name=".Main" />
+        <activity
+            android:name=".Developer"
+            android:parentActivityName=".Login" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -18,6 +20,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.balysv.materialripple.MaterialRippleLayout;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,10 +33,12 @@ import java.util.Map;
 public class Login extends AppCompatActivity {
 
     public com.app.barcodeattendance.Func func;
-    public AppCompatButton developed_by;
+    public AppCompatButton developed_by,scan;
     public TextInputEditText matric,password;
     public ProgressDialog progressDialog;
     public MaterialRippleLayout login;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class Login extends AppCompatActivity {
                 startActivity(new Intent(com.app.barcodeattendance.Login.this, com.app.barcodeattendance.Developer.class));
             }
         });
+
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override

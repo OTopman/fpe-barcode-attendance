@@ -73,7 +73,7 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:tint="@color/colorPrimary"
-                    app:srcCompat="@drawable/ic_outline_dashboard_24"
+                    app:srcCompat="@drawable/ic_baseline_home_24"
                     tools:ignore="VectorDrawableCompat" />
 
             </LinearLayout>
