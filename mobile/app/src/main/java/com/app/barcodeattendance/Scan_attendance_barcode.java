@@ -145,7 +145,22 @@ public class Scan_attendance_barcode extends AppCompatActivity {
 
                 func.dismissDialog();
 
-                func.success_toast(response.toString());
+                try {
+
+                    JSONObject object = new JSONObject(response);
+                    if (object.getString("error").equals("0")){
+                        func.vibrate();
+                        func.error_toast(object.getString("msg"));
+                        return;
+                    }
+
+                    func.success_toast(object.getString("msg"));
+                    Intent intent = new Intent(getApplicationContext(), Main.class);
+                    startActivity(intent);
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
 
             }
         }, new Response.ErrorListener() {
