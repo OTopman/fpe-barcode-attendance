@@ -12,6 +12,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -19,34 +26,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Scan_attendance_barcode extends AppCompatActivity {
 
     public Func func;
 
-    public String response;
+    public String response,attendance_id;
     public TextView fname,level,course_code,dept,start_date,end_date;
 
     public Button scan;
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        // if the intentResult is null then
-        // toast a message as "cancelled"
-        if (intentResult != null) {
-            if (intentResult.getContents() == null) {
-                func.error_toast("Cancelled");
-            } else {
-                // if the intentResult is not null we'll set
-                // the content and format of scan message
-                func.success_toast(intentResult.getContents());
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +48,7 @@ public class Scan_attendance_barcode extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        String attendance_id = bundle.getString("view_id","empty");
+         attendance_id = bundle.getString("view_id","empty");
         this.setTitle("Mark Attendance");
 
         if (attendance_id.equals("empty")){
@@ -117,6 +108,65 @@ public class Scan_attendance_barcode extends AppCompatActivity {
         }catch (JSONException e){
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        // if the intentResult is null then
+        // toast a message as "cancelled"
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                func.error_toast("Cancelled");
+            } else {
+                // if the intentResult is not null we'll set
+                // the content and format of scan message
+                //func.success_toast(intentResult.getContents());
+
+                String matric = intentResult.getContents();
+
+                Scan_attendance(attendance_id,matric);
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    public void Scan_attendance(String attendance_id, String matric){
+
+        func.startDialog();
+
+        StringRequest request = new StringRequest(Request.Method.POST, Core.SITE_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                func.dismissDialog();
+
+                func.success_toast(response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                func.dismissDialog();
+                func.error_toast(error.toString());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("action", "scan_barcode_attendance");
+                param.put("matric", matric);
+                param.put("attendance_id", attendance_id);
+                return  param;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(request);
 
     }
 }
