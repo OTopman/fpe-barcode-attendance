@@ -128,6 +128,29 @@ require_once 'libs/head.php';
             <!-- /.tab-pane -->
             <div class="tab-pane" id="tab_2">
 
+                <div class="table-responsive">
+                    <table class="table-bordered table" id="example1">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Attendance Date</th>
+                            <th>Course Title</th>
+                            <th>Course Code</th>
+                            <th>Lecturer In-Charge</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>SN</th>
+                            <th>Attendance Date</th>
+                            <th>Course Title</th>
+                            <th>Course Code</th>
+                            <th>Lecturer In-Charge</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
             </div>
             <div class="tab-pane" id="tab_3">
 

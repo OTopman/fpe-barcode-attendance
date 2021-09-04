@@ -6,9 +6,6 @@
  * Time: 15:11
  */
 
-    require_once 'config/barcode/vendor/autoload.php';
-$redColor = [255, 0, 0];
-    $generator = new Picqer\Barcode\BarcodeGeneratorPNG("ss");
 ?>
 
 <table width="500" align="center" style="border-collapse: collapse; background-image:url('templates/images/logo2fade.png'); box-shadow:0 0 0 2px #f5f5f5; border-radius:5px;" border="1">
@@ -35,7 +32,17 @@ $redColor = [255, 0, 0];
                 </tr>
             </table>
 
-            <table>
+            <table align="right">
+                <tr>
+                    <td>
+                        <img src="generate.php?matric=<?php echo $data['matric']; ?>" alt="" style="width:120px; height: 120px;">
+                    </td>
+                </tr>
+            </table>
+
+
+
+            <table align="center">
                 <tr>
                     <td style="padding-bottom: 5px;"><b>Matric Number :</b> <?php echo strtoupper($data['matric'])?></td>
                 </tr>
@@ -51,10 +58,8 @@ $redColor = [255, 0, 0];
                 <tr>
                     <td style="padding-bottom: 5px;"><b>Gender :</b> <?php echo ucwords($data['gender'])?></td>
                 </tr>
-                <tr>
-                    <td style="width: 100%"><?= '<img src="data:image/png;base64,' . base64_encode($generator->getBarcode($data['matric'], $generator::TYPE_CODE_128)) . '">'; ?></td>
-                </tr>
             </table>
+
         </td>
     </tr>
 </table>

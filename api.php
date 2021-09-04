@@ -111,21 +111,42 @@ switch ($action_data['action']){
 
         break;
 
-    case 'barcode_attendance' :
+    case 'scan_barcode_attendance' :
 
-        $matric = base64_decode($action_data['matric']);
+        $matric = $action_data['matric'];
+        $attendance_id = $action_data['attendance_id'];
+
+        $end_time = date('m/d/Y H:s A');
 
         $sql = $db->query("SELECT * FROM students WHERE matric='$matric'");
         $rs = $sql->fetch(PDO::FETCH_ASSOC);
 
         $student_id = $rs['id'];
+        $department_id = $rs['dept'];
+        $level = $rs['level'];
+
+        $sql2 = $db->query("SELECT * FROM attendance WHERE id='$attendance_id' and end_date <='$end_time'");
+
+        $sql3 = $db->query("SELECT * FROM student_attendance WHERE student_id='$student_id' and attendance_id='$attendance_id'");
 
         if ($sql->rowCount() == 0){
             $data['error'] = 0;
             $data['msg'] = "Invalid barcode";
+        }elseif ($sql2->rowCount() == 0){
+            $data['error'] = 0;
+            $data['msg'] = "Attendance time has been closed";
+        }elseif ($sql3->rowCount() >= 1){
+            $data['error'] = 0;
+            $data['msg'] = "You have already mark an attendance";
+        }else{
+
+            $db->query("INSERT INTO student_attendance (student_id,attendance_id)VALUES ('$student_id','$attendance_id')");
+
+            $data['error'] =1;
+            $data['msg'] = "Your attendance has been submitted successfully";
         }
 
-
+        get_json($data);
 
         break;
     default;
