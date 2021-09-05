@@ -125,7 +125,7 @@ switch ($action_data['action']){
         $department_id = $rs['dept'];
         $level = $rs['level'];
 
-        $sql2 = $db->query("SELECT * FROM attendance WHERE id='$attendance_id' and end_date <='$end_time'");
+        $sql2 = $db->query("SELECT * FROM attendance WHERE id='$attendance_id' and end_time <='$end_time'");
 
         $sql3 = $db->query("SELECT * FROM student_attendance WHERE student_id='$student_id' and attendance_id='$attendance_id'");
 

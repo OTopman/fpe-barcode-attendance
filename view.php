@@ -136,6 +136,7 @@ require_once 'libs/head.php';
                             <th>Attendance Date</th>
                             <th>Course Title</th>
                             <th>Course Code</th>
+                            <th>Department</th>
                             <th>Lecturer In-Charge</th>
                         </tr>
                         </thead>
@@ -145,9 +146,28 @@ require_once 'libs/head.php';
                             <th>Attendance Date</th>
                             <th>Course Title</th>
                             <th>Course Code</th>
+                            <th>Department</th>
                             <th>Lecturer In-Charge</th>
                         </tr>
                         </tfoot>
+                        <tbody>
+                        <?php
+                            $sn =1;
+                            $sql = $db->query("SELECT s_a.*, c.title, c.code, d.name, s.fname  FROM student_attendance s_a INNER JOIN attendance a ON s_a.attendance_id = a.id INNER JOIN course c ON a.course_id = c.id INNER JOIN staff s ON a.staff_id = s.id INNER JOIN departments d ON c.department = d.id WHERE s_a.student_id='$student_id'");
+                            while ($rs = $sql->fetch(PDO::FETCH_ASSOC)){
+                                ?>
+                                <tr>
+                                    <td><?= $sn++ ?></td>
+                                    <td><?= $rs['created_at']?></td>
+                                    <td><?= $rs['title'] ?></td>
+                                    <td><?= $rs['code'] ?></td>
+                                    <td><?= $rs['name'] ?></td>
+                                    <td><?= ucwords($rs['fname']) ?></td>
+                                </tr>
+                                <?php
+                            }
+                        ?>
+                        </tbody>
                     </table>
                 </div>
 

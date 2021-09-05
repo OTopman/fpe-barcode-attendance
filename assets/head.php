@@ -69,7 +69,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<?= image_url('icon.jpeg') ?>" class="user-image" alt="User Image">
-                            <span class="hidden-xs"><?= ucwords(admin_details('fname')) ?> (Admin)</span>
+                            <span class="hidden-xs"><?= ucwords($name) ?></span>
                         </a>
                     </li>
                 </ul>

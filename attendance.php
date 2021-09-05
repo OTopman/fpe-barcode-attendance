@@ -138,7 +138,7 @@ require_once 'assets/head.php';
                             <td><?= strtoupper($rs['level']) ?></td>
                             <td><?= $rs['start_time'] ?></td>
                             <td><?= $rs['end_time'] ?></td>
-                            <td><a href="" class="btn btn-primary btn-sm">View</a></td>
+                            <td><a href="view-attendance.php?id=<?= $rs['id'] ?>" class="btn btn-primary btn-sm">View Student Attendance</a></td>
                         </tr>
                         <?php
                     }
